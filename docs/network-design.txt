@@ -1,0 +1,24 @@
+Region: ap-south-1 (Mumbai)
+Availability Zones: 2
+
+VPC CIDR: 10.0.0.0/16
+
+Public Subnets:
+- Public Subnet A (10.0.1.0/24, AZ-a)
+  - Route: 0.0.0.0/0 → IGW
+  - Resources: ALB
+
+- Public Subnet B (10.0.2.0/24, AZ-b)
+  - Route: 0.0.0.0/0 → IGW
+  - Resources: ALB (HA)
+
+Private Subnets:
+- Private Subnet A (10.0.3.0/24, AZ-a)
+  - Route 1: 10.0.0.0/16 → Local (Internal VPC traffic)
+  - Route 2: pl-xxxxxxxx → S3 Gateway Endpoint (Required for ECR image layers)
+  - Resources: ECS tasks, RDS standby
+
+- Private Subnet B (10.0.4.0/24, AZ-b)
+  - Route 1: 10.0.0.0/16 → Local (Internal VPC traffic)
+  - Route 2: pl-xxxxxxxx → S3 Gateway Endpoint (Required for ECR image layers)
+  - Resources: ECS tasks, RDS standby

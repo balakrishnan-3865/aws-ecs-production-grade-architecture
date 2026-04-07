@@ -1,0 +1,37 @@
+spring:
+  # application:
+  #   name: app
+  flyway:
+    enabled: false
+
+ datasource:
+   url: ${DB_URL}
+   username: ${DB_USERNAME}
+   password: ${DB_PASSWORD}
+   driver-class-name: org.postgresql.Driver
+
+  # datasource:
+  #    url: ${DB_URL:jdbc:postgresql://localhost:5432/audit}
+  #    username: ${DB_USER:postgres}
+  #    password: ${DB_PASSWORD:root}
+  #    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+#  autoconfigure:
+#    exclude:
+#      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+server:
+  port: 8080

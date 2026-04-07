@@ -1,0 +1,47 @@
+{
+  "family": "spring-boot-app",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "<EXECUTION_ROLE_ARN>",
+  "containerDefinitions": [
+    {
+      "name": "spring-boot-container",
+      "image": "<ECR_IMAGE_URI>",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        { "name": "DB_HOST", "value": "<DB_ENDPOINT>" },
+        { "name": "DB_NAME", "value": "<DB_NAME>" }
+      ],
+      "secrets": [
+        {
+          "name": "SPRING_PROFILES_ACTIVE",
+          "valueFrom": "arn:aws:ssm:<region>:<account-id>:parameter/<app>/env/SPRING_PROFILES_ACTIVE"
+        },
+        {
+          "name": "DB_USER",
+          "valueFrom": "<SECRET_ARN>:postgresql_username::"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "valueFrom": "<SECRET_ARN>:postgresql_password::"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "<LOG_GROUP>",
+          "awslogs-region": "<REGION>",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}

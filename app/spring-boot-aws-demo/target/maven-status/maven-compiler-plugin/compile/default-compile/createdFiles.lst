@@ -1,0 +1,8 @@
+com\example\awsdemo\repository\AuditEventRepository.class
+com\example\awsdemo\domain\AuditEvent.class
+com\example\awsdemo\service\AuditService.class
+com\example\awsdemo\controller\AuditController.class
+com\example\awsdemo\dto\CreateAuditRequest.class
+com\example\awsdemo\AwsDemoApplication.class
+com\example\awsdemo\dto\AuditResponse.class
+com\example\awsdemo\health\HealthController.class
